@@ -161,6 +161,8 @@ std::string Deck::printRaw() {
 				print += formatedString;
 			}
 
+			print += "\n";
+
 		} else print += "\nHAND: The hand is empty!\n\n";
 
 		print += "Number of decks: ";

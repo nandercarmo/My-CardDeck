@@ -8,7 +8,7 @@ int main() {
 
 	try {
 
-		deck.newDeck(11);
+		deck.newDeck(1);
 		deck.printRaw();
 
 
