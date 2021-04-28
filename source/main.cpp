@@ -11,7 +11,6 @@ int main() {
 		deck.newDeck(1);
 		deck.printRaw();
 
-
 	} catch(My::Exception & e) {
 
 		std::cout << e.what() << std::endl;

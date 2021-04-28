@@ -187,7 +187,7 @@ std::string Deck::printRaw() {
 	}
 }
 
-// Nom-member function
+// Non-member function
 
 std::ostream & operator<<(std::ostream & stream, const Deck & deck) {
 
