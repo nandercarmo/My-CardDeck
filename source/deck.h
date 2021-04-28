@@ -15,38 +15,37 @@
 #include <iostream>
 
 #include "cards.h"
+#include "exception.h"
 
 namespace My {
 
 	static constexpr int DEBUG = 1;
 	static constexpr int DECK_MAXIMUM = 10;
 
-	typedef std::vector<Card_t> Deck_t;
+	typedef std::vector<const Card_t *> Deck_t;
 
 	class Deck {
 
 		Deck_t * _deck = nullptr;
 		Deck_t * _hand = nullptr;
-		int _deckSize;
-		int _remainingCards;
-		int _index;
+		int _numberOfDecks = 0;
 
 	public:
 
-		Deck() { if(DEBUG) printf("Deck contructor\n"); };
+		Deck();
 		~Deck();
 
-		int getRemainingCards();
-		int getNumberOfDecks();
-		int getDeckSize();
-		const Deck_t * getDeck();
-		const Deck_t * getHand();
-
-
-		void shuffle();
 		void newDeck(int);
+		void shuffle();
 		void dealCards(int);
 		void discardCard(int);
+
+		int getNumberOfDecks();
+		int getDeckSize();
+		int getRemainingCards();
+		int getHandSize();
+		const Deck_t * getDeck();
+		const Deck_t * getHand();
 		
 		void printDeckText();
 		void printDeckDraw();

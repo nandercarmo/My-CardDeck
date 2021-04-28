@@ -10,6 +10,10 @@
 
 using namespace My;
 
+Deck::Deck() { 
+	if(DEBUG) printf("Deck::Deck\n"); 
+};
+
 Deck::~Deck() {
 
 	if(DEBUG) printf("Deck::~Deck\n");
@@ -17,29 +21,71 @@ Deck::~Deck() {
 	if(_deck) delete _deck;
 	if(_hand) delete _hand;
 
-	_remainingCards = DEFAULT_DECK_SIZE;
-	_deckSize = DEFAULT_DECK_SIZE;
-	_index = 0;	
+	_numberOfDecks = 0;	
 }
 
-int Deck::getRemainingCards() { 
+void Deck::newDeck(int decks) {
 
-	if(DEBUG) printf("Deck::getRemainingCards\n");
+	if(DEBUG) printf("Deck::newDeck\n");
 
+	if(decks > 0 && decks <= DECK_MAXIMUM) {
 
-	return _remainingCards; 
+		_deck = new Deck_t;
+		//_deck->reserve(decks * DEFAULT_DECK_SIZE);
+
+		for (int deck = 0; deck < decks; ++deck) {
+			
+			for(int card = 0; card < DEFAULT_DECK_SIZE; ++card) {
+
+				_deck->push_back(&DEFAULT_DECK[card]);
+			}
+		}
+		
+		_hand = new Deck_t;
+
+		_numberOfDecks = decks;
+
+	} else throw EXECPTION_INVALID_DECK_NUMBER;
+}
+
+void Deck::shuffle() {
+
+	if(DEBUG) printf("Deck::shuffle\n");
+}
+
+void Deck::dealCards(int cards = 1) {
+
+	if(DEBUG) printf("Deck::dealCards\n");
+}
+
+void Deck::discardCard(int index = 0) {
+
+	if(DEBUG) printf("Deck::discardCard\n");
 }
 
 int Deck::getNumberOfDecks() { 
 
 	if(DEBUG) printf("Deck::getNumberOfDecks\n");
-	return _deckSize / DEFAULT_DECK_SIZE; 
+	return _numberOfDecks; 
 }
 
 int Deck::getDeckSize() { 
 
 	if(DEBUG) printf("Deck::getDeckSize\n");
-	return _deckSize; 
+	return _numberOfDecks * DEFAULT_DECK_SIZE; 
+}
+
+
+int Deck::getRemainingCards() {
+
+	if(DEBUG) printf("Deck::getRemainingCards\n");
+	return _deck->size(); 
+}
+
+int Deck::getHandSize() {
+
+	if(DEBUG) printf("Deck::getHandSize\n");
+	return _hand->size(); 
 }
 
 const Deck_t * Deck::getDeck() { 
@@ -53,34 +99,7 @@ const Deck_t * Deck::getHand() {
 	if(DEBUG) printf("Deck::getHand\n");
 	return _hand; 
 }
-
-void Deck::shuffle() {
-
-	if(DEBUG) printf("Deck::shuffle\n");
-
-
-}
-
-void Deck::newDeck(int decks = 1) {
-
-	if(DEBUG) printf("Deck::newDeck\n");
-
-	_deck = new Deck_t(DEFAULT_DECK, DEFAULT_DECK + DEFAULT_DECK_SIZE);
-
-	printRaw();
-}
-
-void Deck::dealCards(int cards = 1) {
-
-	if(DEBUG) printf("Deck::dealCards\n");
-}
-
-void Deck::discardCard(int index = 0) {
-
-	if(DEBUG) printf("Deck::discardCard\n");
-}
-
-		
+	
 void Deck::printDeckText() {
 
 	if(DEBUG) printf("Deck::printDeckText\n");
@@ -105,28 +124,65 @@ std::string Deck::printRaw() {
 
 	if(DEBUG) printf("Deck::printRaw\n");
 	
-	char formatedString[100];
-	std::string print = "";
+	if(_deck != nullptr) {
 
-	std::cout << std::endl;
+		char formatedString[100];
+		std::string print = "\nDECK:\n\n";
 
-	for(auto card: *_deck) {
+		for(auto card: *_deck) {
 
-		sprintf(
-			formatedString,
-			"Card: { rank: %s, suit: { name: \"%s\", symbol: %s }, draw: %s }\n",
-			card.rank, 
-			SUITS[card.suit].name, 
-			SUITS[card.suit].symbol,
-			card.draw
-		);
+			sprintf(
+				formatedString,
+				"Card: { rank: %s, suit: { name: \"%s\", symbol: %s }, draw: %s }\n",
+				card->rank, 
+				SUITS[card->suit].name, 
+				SUITS[card->suit].symbol,
+				card->draw
+			);
 
-		print += formatedString;
-	}
+			print += formatedString;
+		}
 
-	std::cout << print << std::endl;
+		if(!_hand->empty()) {
+
+			print += "\nHAND:\n\n";
+
+			for(auto card: *_hand) {
+
+				sprintf(
+					formatedString,
+					"Card: { rank: %s, suit: { name: \"%s\", symbol: %s }, draw: %s }\n",
+					card->rank, 
+					SUITS[card->suit].name, 
+					SUITS[card->suit].symbol,
+					card->draw
+				);
+
+				print += formatedString;
+			}
+
+		} else print += "\nHAND: The hand is empty!\n\n";
+
+		print += "Number of decks: ";
+		print += std::to_string(getNumberOfDecks());
+		print += "\nDeck size: ";
+		print += std::to_string(getDeckSize());
+		print += " cards\nRemaining cards: ";
+		print += std::to_string(getRemainingCards());
+		print += " cards\nHand size: ";
+		print += std::to_string(getHandSize());
+		print += " cards\n\n";
+
+		std::cout << print;
+		
+		return print;
 	
-	return print;
+	} else {
+		
+		throw EXCEPTION_DECK_NOT_CREATED;
+
+		return std::string(EXCEPTION_DECK_NOT_CREATED.what());
+	}
 }
 
 // Nom-member function

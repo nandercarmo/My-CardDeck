@@ -4,11 +4,18 @@
 
 int main() {
 
-	printf("Default deck size: %i\n", My::DEFAULT_DECK_SIZE);
-
 	My::Deck deck;
 
-	deck.newDeck(1);
+	try {
+
+		deck.newDeck(11);
+		deck.printRaw();
+
+
+	} catch(My::Exception & e) {
+
+		std::cout << e.what() << std::endl;
+	}
 
     return errno; 
 }
