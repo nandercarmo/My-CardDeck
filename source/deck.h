@@ -11,50 +11,51 @@
 
 #include <cstdio>
 #include <vector>
+#include <string>
 #include <iostream>
 
 #include "cards.h"
 
 namespace My {
 
-	static constexpr int DEFAULT_DECK_SIZE = 52;
+	static constexpr int DEBUG = 1;
 	static constexpr int DECK_MAXIMUM = 10;
 
 	typedef std::vector<Card_t> Deck_t;
 
 	class Deck {
 
-		Deck_t * _deck;
-		Deck_t * _hand;
+		Deck_t * _deck = nullptr;
+		Deck_t * _hand = nullptr;
 		int _deckSize;
 		int _remainingCards;
 		int _index;
 
 	public:
 
-		Deck(int size = 1) : _deckSize(size) {};
+		Deck() { if(DEBUG) printf("Deck contructor\n"); };
 		~Deck();
 
-		void start();
+		int getRemainingCards();
+		int getNumberOfDecks();
+		int getDeckSize();
+		const Deck_t * getDeck();
+		const Deck_t * getHand();
+
+
 		void shuffle();
+		void newDeck(int);
+		void dealCards(int);
+		void discardCard(int);
 		
 		void printDeckText();
 		void printDeckDraw();
 		void printHandText();
 		void printHandDraw();
-
-		int getRemainingCards() { return _remainingCards; };
-		int getNumberOfDecks() { return _deckSize / DEFAULT_DECK_SIZE; };
-
-		void takeCards(int cards = 1);
-
-		Deck & operator= (const Deck & deck);
-
-		const Deck_t * getDeck() { return _deck; };
-		const Deck_t * getHand() { return _hand; };
+		std::string printRaw();
 	};
 
-	std::ostream & operator<< (std::ostream stream, const Deck & deck);
+	std::ostream & operator<<(std::ostream & stream, const Deck & deck);
 }
 
 #endif
