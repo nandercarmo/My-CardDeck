@@ -308,6 +308,36 @@ void Deck::printDeck() {
 void Deck::printHand() {
 
 	if(DEBUG) printf("Deck::printHand\n");
+
+	if(_deck) {
+
+		uint8_t i = 0;
+
+		printf("Hand:\n\n");
+
+		switch (_printMode) {
+			
+			case DRAW:
+
+				for(auto card: *_hand) printf("%s%s", _printCardDraw(card), (++i % 13) ? "" : "\n\n");
+				printf(i % 13 ? "\n\n" : "\n");
+				break;
+
+			case RANK_SUIT:
+
+				for(auto card: *_hand) printf("%s%s", _printCardRankSuit(card), (++i % 13) ? "" : "\n\n");
+				printf(i % 13 ? "\n\n" : "\n");
+				break;
+
+			case TEXT:
+
+				for(auto card: *_hand) printf("%s", _printCardText(card));
+				break;
+			
+			default: break;
+		}
+
+	} else throw EXCEPTION_DECK_NOT_CREATED;
 }
 
 void Deck::printRaw() {

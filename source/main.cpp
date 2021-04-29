@@ -17,6 +17,7 @@ int main() {
 		deck.discardCard(0);
 		deck.printRaw();
 		deck.printDeck();
+		deck.printHand();
 
 
 	} catch(My::Exception & e) {
