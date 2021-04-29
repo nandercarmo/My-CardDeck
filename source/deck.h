@@ -24,13 +24,26 @@ namespace My {
 	static constexpr int DEBUG = 0;
 	static constexpr int DECK_MAXIMUM = 10;
 
+	enum Print_e: uint8_t { 
+
+		DRAW = 1,
+		RANK_SUIT,
+		TEXT
+	};
+
 	typedef std::vector<const Card_t *> Deck_t;
 
 	class Deck {
 
-		Deck_t * _deck = nullptr;
-		Deck_t * _hand = nullptr;
-		int _numberOfDecks = 0;
+		Deck_t * _deck;
+		Deck_t * _hand;		
+		Print_e _printMode;
+		int _numberOfDecks;
+
+		const char * _printCardDraw(const Card_t *);
+		const char * _printCardRankSuit(const Card_t *);
+		const char * _printCardText(const Card_t *);
+		const char * _printCardRaw(const Card_t *);
 
 	public:
 
@@ -48,15 +61,13 @@ namespace My {
 		int getHandSize();
 		const Deck_t * getDeck();
 		const Deck_t * getHand();
-		
-		void printDeckText();
-		void printDeckDraw();
-		void printHandText();
-		void printHandDraw();
-		std::string printRaw();
-	};
 
-	std::ostream & operator<<(std::ostream & stream, const Deck & deck);
+		void setPrintMode(Print_e);
+		
+		void printDeck();
+		void printHand();
+		void printRaw();
+	};
 }
 
 #endif

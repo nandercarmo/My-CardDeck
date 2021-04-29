@@ -13,7 +13,7 @@
 
 namespace My {
 
-	enum SUITS_ENUM: uint8_t { 
+	enum Suits_e: uint8_t { 
 		
 		SPADES = 0, 
 		HEARTS,
@@ -21,7 +21,7 @@ namespace My {
 		CLUBS 
 	};
  
-	enum RANK_ENUM: uint8_t { 
+	enum Rank_e: uint8_t { 
 		
 		ACE = 0, 
 		TWO, 
@@ -40,8 +40,8 @@ namespace My {
 
 	struct Card_t {
 
-		const uint8_t suit;
-		const uint8_t rank;
+		const Suits_e suit;
+		const Rank_e rank;
 		const char * const draw;
 	};
 

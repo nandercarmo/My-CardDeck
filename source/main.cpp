@@ -8,13 +8,16 @@ int main() {
 
 	try {
 
+		deck.setPrintMode(My::DRAW);
 		deck.newDeck(1);
 		deck.shuffle();
-		deck.printRaw();
+		//deck.printRaw();
 		deck.dealCards(5);
-		deck.printRaw();
+		//deck.printRaw();
 		deck.discardCard(0);
 		deck.printRaw();
+		deck.printDeck();
+
 
 	} catch(My::Exception & e) {
 
