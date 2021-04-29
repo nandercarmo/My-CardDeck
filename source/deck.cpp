@@ -18,15 +18,24 @@ Deck::~Deck() {
 
 	if(DEBUG) printf("Deck::~Deck\n");
 
-	if(_deck) delete _deck;
-	if(_hand) delete _hand;
+	if(_deck) {
+		
+		_deck->clear();	
+		delete _deck;
+	}
+	
+	if(_hand) {
+
+		_hand->clear();
+		delete _hand;
+	}
 
 	_numberOfDecks = 0;	
 }
 
 void Deck::newDeck(int decks) {
 
-	if(DEBUG) printf("Deck::newDeck\n");
+	if(DEBUG) printf("Deck::newDeck(%i)\n", decks);
 
 	if(decks > 0 && decks <= DECK_MAXIMUM) {
 
@@ -61,24 +70,35 @@ void Deck::shuffle() {
 
 			int indexToChange = rand() % _deck->size();
 
-			const Card_t * card1 = _deck->at(i);
-			const Card_t * card2 = _deck->at(indexToChange);
+			const Card_t * auxCard = _deck->at(i);
 
-			_deck->at(i) = card2;
-			_deck->at(indexToChange) = card1;
+			_deck->at(i) = _deck->at(indexToChange);
+			_deck->at(indexToChange) = auxCard;
 		}
 
 	} else throw EXCEPTION_DECK_NOT_CREATED;
 }
 
-void Deck::dealCards(int cards = 1) {
+void Deck::dealCards(int cards) {
 
-	if(DEBUG) printf("Deck::dealCards\n");
+	if(DEBUG) printf("Deck::dealCards(%i)\n", cards);
+
+	if(cards > 1 && cards < (int) _deck->size() + 1) {
+
+		for (int i = 0; i < cards; i++)	{
+			
+			const Card_t * dealCard = _deck->back();
+
+			_deck->pop_back();
+			_hand->push_back(dealCard);
+		}
+
+	} else throw EXECPTION_INVALID_DEAL_CARDS_NUMBER;
 }
 
-void Deck::discardCard(int index = 0) {
+void Deck::discardCard(int index) {
 
-	if(DEBUG) printf("Deck::discardCard\n");
+	if(DEBUG) printf("Deck::discardCard(%i)\n", index);
 }
 
 int Deck::getNumberOfDecks() { 

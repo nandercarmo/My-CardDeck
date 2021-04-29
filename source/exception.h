@@ -26,6 +26,7 @@ namespace My {
 
 	const Exception EXCEPTION_DECK_NOT_CREATED("\nERRO: Deck not created yet!\n");
 	const Exception EXECPTION_INVALID_DECK_NUMBER("\nERRO: Number of deck must be between 1 and 10!\n");
+	const Exception EXECPTION_INVALID_DEAL_CARDS_NUMBER("\nERRO: Number of cards to deal must be between 1 and the number of cards remaining in the deck!\n");
 }
 
 #endif

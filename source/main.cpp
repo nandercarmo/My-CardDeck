@@ -11,6 +11,8 @@ int main() {
 		deck.newDeck(1);
 		deck.shuffle();
 		deck.printRaw();
+		deck.dealCards(5);
+		deck.printRaw();
 
 	} catch(My::Exception & e) {
 
