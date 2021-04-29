@@ -9,6 +9,7 @@ int main() {
 	try {
 
 		deck.newDeck(1);
+		deck.shuffle();
 		deck.printRaw();
 
 	} catch(My::Exception & e) {

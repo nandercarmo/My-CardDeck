@@ -13,6 +13,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 #include "cards.h"
 #include "exception.h"

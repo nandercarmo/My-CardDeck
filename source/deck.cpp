@@ -51,6 +51,24 @@ void Deck::newDeck(int decks) {
 void Deck::shuffle() {
 
 	if(DEBUG) printf("Deck::shuffle\n");
+
+	if(_deck) {
+
+		srand((unsigned) time(nullptr));
+		rand();
+
+		for(size_t i = 0; i < _deck->size(); ++i) {
+
+			int indexToChange = rand() % _deck->size();
+
+			const Card_t * card1 = _deck->at(i);
+			const Card_t * card2 = _deck->at(indexToChange);
+
+			_deck->at(i) = card2;
+			_deck->at(indexToChange) = card1;
+		}
+
+	} else throw EXCEPTION_DECK_NOT_CREATED;
 }
 
 void Deck::dealCards(int cards = 1) {
