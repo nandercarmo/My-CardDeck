@@ -83,22 +83,52 @@ void Deck::dealCards(int cards) {
 
 	if(DEBUG) printf("Deck::dealCards(%i)\n", cards);
 
-	if(cards > 1 && cards < (int) _deck->size() + 1) {
+	if(_deck) {
 
-		for (int i = 0; i < cards; i++)	{
-			
-			const Card_t * dealCard = _deck->back();
+		if(_deck->empty()) printf("\nDeck is empty! There's no card to deal!\n\n");
+		else {
 
-			_deck->pop_back();
-			_hand->push_back(dealCard);
+			if(cards > 0 && cards < (int) _deck->size() + 1) {
+
+				for (int i = 0; i < cards; i++)	{
+					
+					const Card_t * dealCard = _deck->back();
+
+					_deck->pop_back();
+					_hand->push_back(dealCard);
+				}
+
+			} else throw EXECPTION_INVALID_DEAL_CARDS_NUMBER;
 		}
 
-	} else throw EXECPTION_INVALID_DEAL_CARDS_NUMBER;
+	} else throw EXCEPTION_DECK_NOT_CREATED;
 }
 
 void Deck::discardCard(int index) {
 
 	if(DEBUG) printf("Deck::discardCard(%i)\n", index);
+
+	if(_deck) {
+
+		if(_hand->empty()) printf("\nHand is empty! There's no card to discard!\n\n");
+		else {
+
+			if(index >= 0 && index < (int) _hand->size()) {
+
+				printf(
+					"\nDISCARDED CARD: { rank: %s, suit: { name: \"%s\", symbol: %s }, draw: %s }\n\n",
+					_hand->at(index)->rank, 
+					SUITS[_hand->at(index)->suit].name, 
+					SUITS[_hand->at(index)->suit].symbol,
+					_hand->at(index)->draw
+				);
+
+				_hand->erase(_hand->begin() + index);
+
+			} else throw EXECPTION_INVALID_CARD_TO_DISCARD;
+		}
+
+	} else throw EXCEPTION_DECK_NOT_CREATED;
 }
 
 int Deck::getNumberOfDecks() { 
@@ -165,23 +195,30 @@ std::string Deck::printRaw() {
 	if(_deck != nullptr) {
 
 		char formatedString[100];
-		std::string print = "\nDECK:\n\n";
+		std::string print = "";
+		
+		if(_deck->empty()) print += "\nDECK: The deck is empty!\n";
+		else {
 
-		for(auto card: *_deck) {
+			print += "\nDECK:\n\n";
 
-			sprintf(
-				formatedString,
-				"Card: { rank: %s, suit: { name: \"%s\", symbol: %s }, draw: %s }\n",
-				card->rank, 
-				SUITS[card->suit].name, 
-				SUITS[card->suit].symbol,
-				card->draw
-			);
+			for(auto card: *_deck) {
 
-			print += formatedString;
+				sprintf(
+					formatedString,
+					"Card: { rank: %s, suit: { name: \"%s\", symbol: %s }, draw: %s }\n",
+					card->rank, 
+					SUITS[card->suit].name, 
+					SUITS[card->suit].symbol,
+					card->draw
+				);
+
+				print += formatedString;
+			}
 		}
 
-		if(!_hand->empty()) {
+		if(_hand->empty()) print += "\nHAND: The hand is empty!\n\n";
+		else {
 
 			print += "\nHAND:\n\n";
 
@@ -200,8 +237,7 @@ std::string Deck::printRaw() {
 			}
 
 			print += "\n";
-
-		} else print += "\nHAND: The hand is empty!\n\n";
+		} 
 
 		print += "Number of decks: ";
 		print += std::to_string(getNumberOfDecks());
@@ -231,5 +267,3 @@ std::ostream & operator<<(std::ostream & stream, const Deck & deck) {
 
 	return stream << "operator<<\n";
 }
-
-

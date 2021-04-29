@@ -21,7 +21,7 @@
 
 namespace My {
 
-	static constexpr int DEBUG = 1;
+	static constexpr int DEBUG = 0;
 	static constexpr int DECK_MAXIMUM = 10;
 
 	typedef std::vector<const Card_t *> Deck_t;

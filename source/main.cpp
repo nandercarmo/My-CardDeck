@@ -11,7 +11,11 @@ int main() {
 		deck.newDeck(1);
 		deck.shuffle();
 		deck.printRaw();
-		deck.dealCards(5);
+		deck.dealCards(1);
+		deck.printRaw();
+		deck.discardCard(0);
+		deck.printRaw();
+		deck.discardCard(0);
 		deck.printRaw();
 
 	} catch(My::Exception & e) {
