@@ -116,8 +116,9 @@ void Deck::discardCard(int index) {
 			if(index >= 0 && index < (int) _hand->size()) {
 
 				printf(
-					"\nDISCARDED CARD: { rank: %s, suit: { name: \"%s\", symbol: %s }, draw: %s }\n\n",
-					_hand->at(index)->rank, 
+					"\nDISCARDED CARD: { rank: { name: \"%s\", symbol: \"%s\" }, suit: { name: \"%s\", symbol: %s }, draw: %s }\n\n",
+					RANKS[_hand->at(index)->rank].name, 
+					RANKS[_hand->at(index)->rank].symbol, 
 					SUITS[_hand->at(index)->suit].name, 
 					SUITS[_hand->at(index)->suit].symbol,
 					_hand->at(index)->draw
@@ -206,8 +207,9 @@ std::string Deck::printRaw() {
 
 				sprintf(
 					formatedString,
-					"Card: { rank: %s, suit: { name: \"%s\", symbol: %s }, draw: %s }\n",
-					card->rank, 
+					"Card: { rank: { name: \"%s\", symbol: \"%s\" }, suit: { name: \"%s\", symbol: %s }, draw: %s }\n",
+					RANKS[card->rank].name, 
+					RANKS[card->rank].symbol, 
 					SUITS[card->suit].name, 
 					SUITS[card->suit].symbol,
 					card->draw
@@ -226,8 +228,9 @@ std::string Deck::printRaw() {
 
 				sprintf(
 					formatedString,
-					"Card: { rank: %s, suit: { name: \"%s\", symbol: %s }, draw: %s }\n",
-					card->rank, 
+					"Card: { rank: { name: \"%s\", symbol: \"%s\" }, suit: { name: \"%s\", symbol: %s }, draw: %s }\n",
+					RANKS[card->rank].name, 
+					RANKS[card->rank].symbol, 
 					SUITS[card->suit].name, 
 					SUITS[card->suit].symbol,
 					card->draw
