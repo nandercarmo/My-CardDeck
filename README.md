@@ -3,8 +3,9 @@
 Deck simulator developed during **Linkedin's "C ++ Essential Training"** course. 
 
 <p align="center">
-  <img src="images/gif.gif">
+  <img src="resources/gif.gif">
 </p>
+
 
 This project aimed to consolidate the knowledge acquired during the course, such as:
 
