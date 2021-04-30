@@ -1,11 +1,19 @@
 # 	🃏	My-CardDeck
 
+<div align="left">
+    <img src="https://img.shields.io/badge/language-c%2B%2B-blue">
+    <img src="https://img.shields.io/badge/compiler-g%2B%2B-brightgreen">
+    <img src="https://img.shields.io/badge/build-makefile-green">
+    <img src="https://img.shields.io/badge/license-MIT-blueviolet">
+</div>
+
+---
+
 Deck simulator developed during **Linkedin's "C ++ Essential Training"** course. 
 
 <p align="center">
   <img src="resources/gif.gif">
 </p>
-
 
 This project aimed to consolidate the knowledge acquired during the course, such as:
 
