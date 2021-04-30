@@ -1,5 +1,40 @@
-# My-CardDeck
-Card deck program developed during the Linkedin "C++ Essential Training" course.
+# 	🃏	My-CardDeck
+
+Deck simulator developed during **Linkedin's "C ++ Essential Training"** course. 
+
+<p align="center">
+  <img src="images/gif.gif">
+</p>
+
+This project aimed to consolidate the knowledge acquired during the course, such as:
+
+- **C ++ Basic Syntax**
+- **Data Types**
+- **Operator and Operators overload**
+- **Functions**
+- **Classes and Objects**
+- **Templates and the STL**
+- **I / O Streams**
+
+I took the liberty to extrapolate a little the specifications of the final project of the course, in order to challenge myself more and to make this project a more interesting and functional example.
+
+---
+
+##	🔨	Functionalities
+
+With the **deck.h** library you will be able to:
+
+- Create up to 10 decks of 52 cards
+- Shuffle the deck randomly
+- Deal cards to the hand
+- Discard a card from the hand
+- Change the way the cards are displayed in 3 different modes: 
+	- Card Drawings Representation
+	- Rank and Suit Representation
+	- Text Representation
+- Print the deck
+- Print the hand
+- Print the match scope
 
 ---
 

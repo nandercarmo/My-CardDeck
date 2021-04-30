@@ -352,6 +352,8 @@ void Deck::printRaw() {
 	
 	if(_deck != nullptr) {
 
+		printf("Match scope:\n\n");
+
 		std::string print = "Deck:\n\n";
 		
 		if(_deck->empty()) print += "\tThe deck is empty!\n\n";
@@ -370,14 +372,10 @@ void Deck::printRaw() {
 			print += "\n";
 		} 
 
-		print += std::to_string(getNumberOfDecks());
-		print += "\n";
-		print += std::to_string(getDeckSize());
-		print += " cards\n";
-		print += std::to_string(getRemainingCards());
-		print += " cards\n";
-		print += std::to_string(getHandSize());
-		print += " cards\n";
+		getNumberOfDecks();
+		getDeckSize();
+		getRemainingCards();
+		getHandSize();
 
 		std::cout << print;
 			

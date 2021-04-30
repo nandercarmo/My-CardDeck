@@ -10,6 +10,7 @@ enum UserChoice_e : uint8_t {
 	DEAL_CARDS,
 	DISCARD,
 	CHANGE_PRINT_MODE,
+	PRINT_MATCH_SCOPE,
 	QUIT
 };
 
@@ -141,7 +142,8 @@ void mainLoop(My::Deck & deck) {
 			printf("4 - Deal cards\n");
 			printf("5 - Discard\n");
 			printf("6 - Change print mode\n");
-			printf("7 - Quit\n\n");
+			printf("7 - Print match scope\n");
+			printf("8 - Quit\n\n");
 
 			userChoice = getUserInput();
 
@@ -178,6 +180,11 @@ void mainLoop(My::Deck & deck) {
 				case CHANGE_PRINT_MODE:
 
 					definePrintMode(deck);
+					break;
+
+				case PRINT_MATCH_SCOPE:
+
+					deck.printRaw();
 					break;
 
 				case QUIT:
