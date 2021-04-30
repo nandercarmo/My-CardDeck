@@ -40,10 +40,10 @@ namespace My {
 		Print_e _printMode;
 		int _numberOfDecks;
 
-		const char * _printCardDraw(const Card_t *);
-		const char * _printCardRankSuit(const Card_t *);
-		const char * _printCardText(const Card_t *);
-		const char * _printCardRaw(const Card_t *);
+		const char * _printCardDraw(const Card_t *, uint8_t);
+		const char * _printCardRankSuit(const Card_t *, uint8_t);
+		const char * _printCardText(const Card_t *, uint8_t);
+		const char * _printCardRaw(const Card_t *, uint8_t);
 
 	public:
 

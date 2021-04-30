@@ -60,7 +60,7 @@ void Deck::newDeck(int decks) {
 
 		_numberOfDecks = decks;
 
-		printf("Created %i %s\n", decks, decks == 1 ? "deck" : "decks");
+		printf("Created %i %s!\n", decks, decks == 1 ? "deck" : "decks");
 
 	} else throw EXECPTION_INVALID_DECK_NUMBER;
 }
@@ -84,7 +84,7 @@ void Deck::shuffle() {
 			_deck->at(indexToChange) = auxCard;
 		}
 
-		printf("Deck shuffled\n");
+		printf("Deck shuffled!\n");
 
 	} else throw EXCEPTION_DECK_NOT_CREATED;
 }
@@ -115,24 +115,24 @@ void Deck::dealCards(int cards) {
 			
 						case DRAW:
 							
-							printf("%s%s", _printCardDraw(dealCard), (i + 1 % 13) ? "" : "\n\n");
+							printf("%s%s", _printCardDraw(dealCard, i), (i + 1 % 6) ? "" : "\n\n");
 							break;
 
 						case RANK_SUIT:
 
-							printf("%s%s", _printCardRankSuit(dealCard), (i + 1 % 13) ? "" : "\n\n");
+							printf("%s%s", _printCardRankSuit(dealCard, i), (i + 1 % 6) ? "" : "\n\n");
 							break;
 
 						case TEXT:
 
-							printf("%s", _printCardText(dealCard));
+							printf("%s", _printCardText(dealCard, i));
 							break;
 						
 						default: break;
 					}
 				}
 
-				if(_printMode == DRAW || _printMode == RANK_SUIT) printf(i % 13 ? "\n\n" : "\n");
+				if(_printMode == DRAW || _printMode == RANK_SUIT) printf(i % 6 ? "\n\n" : "\n");
 
 			} else throw EXECPTION_INVALID_DEAL_CARDS_NUMBER;
 		}
@@ -157,17 +157,17 @@ void Deck::discardCard(int index) {
 			
 					case DRAW:
 						
-						printf("%s\n\n", _printCardDraw(_hand->at(index)));
+						printf("%s\n\n", _printCardDraw(_hand->at(index), index));
 						break;
 
 					case RANK_SUIT:
 
-						printf("%s\n\n", _printCardRankSuit(_hand->at(index)));
+						printf("%s\n\n", _printCardRankSuit(_hand->at(index), index));
 						break;
 
 					case TEXT:
 
-						printf("%s", _printCardText(_hand->at(index)));
+						printf("%s", _printCardText(_hand->at(index), index));
 						break;
 					
 					default: break;
@@ -236,7 +236,6 @@ const Deck_t * Deck::getDeck() {
 
 	if(_deck) {
 
-		printf("Get deck\n");
 		return _deck; 
 
 	} else throw EXCEPTION_DECK_NOT_CREATED;
@@ -248,7 +247,6 @@ const Deck_t * Deck::getHand() {
 
 	if(_deck) {
 
-		printf("Get hand\n");
 		return _hand; 
 
 	} else throw EXCEPTION_DECK_NOT_CREATED;
@@ -263,9 +261,9 @@ void Deck::setPrintMode(Print_e printMode) {
 
 	switch (_printMode) {
 			
-		case DRAW: printf("Draw Mode\n"); break;
-		case RANK_SUIT: printf("Rank and Suit Mode\n"); break;
-		case TEXT: printf("Text Mode\n"); break;
+		case DRAW: printf("Draw Mode!\n"); break;
+		case RANK_SUIT: printf("Rank and Suit Mode!\n"); break;
+		case TEXT: printf("Text Mode!\n"); break;
 		default: break;
 	}
 }
@@ -276,30 +274,34 @@ void Deck::printDeck() {
 
 	if(_deck) {
 
-		uint8_t i = 0;
-
 		printf("Deck:\n\n");
 
-		switch (_printMode) {
-			
-			case DRAW:
+		if(_deck->empty()) printf("\tThe deck is empty!\n\n");
+		else {
 
-				for(auto card: *_deck) printf("%s%s", _printCardDraw(card), (++i % 13) ? "" : "\n\n");
-				printf(i % 13 ? "\n\n" : "\n");
-				break;
+			int i;
 
-			case RANK_SUIT:
+			switch (_printMode) {
+				
+				case DRAW:
 
-				for(auto card: *_deck) printf("%s%s", _printCardRankSuit(card), (++i % 13) ? "" : "\n\n");
-				printf(i % 13 ? "\n\n" : "\n");
-				break;
+					for(i = 0; i < (int) _deck->size(); ++i) printf("%s%s", _printCardDraw(_deck->at(i), i), ((i + 1) % 6) ? "" : "\n\n");
+					printf(i % 6 ? "\n\n" : "\n");
+					break;
 
-			case TEXT:
+				case RANK_SUIT:
 
-				for(auto card: *_deck) printf("%s", _printCardText(card));
-				break;
-			
-			default: break;
+					for(i = 0; i < (int) _deck->size(); ++i) printf("%s%s", _printCardRankSuit(_deck->at(i), i), ((i + 1) % 6) ? "" : "\n\n");
+					printf(i % 6 ? "\n\n" : "\n");
+					break;
+
+				case TEXT:
+
+					for(i = 0; i < (int) _deck->size(); ++i) printf("%s", _printCardText(_deck->at(i), i));
+					break;
+				
+				default: break;
+			}
 		}
 
 	} else throw EXCEPTION_DECK_NOT_CREATED;
@@ -311,30 +313,34 @@ void Deck::printHand() {
 
 	if(_deck) {
 
-		uint8_t i = 0;
-
 		printf("Hand:\n\n");
 
-		switch (_printMode) {
-			
-			case DRAW:
+		if(_hand->empty()) printf("\tThe hand is empty!\n\n");
+		else {
 
-				for(auto card: *_hand) printf("%s%s", _printCardDraw(card), (++i % 13) ? "" : "\n\n");
-				printf(i % 13 ? "\n\n" : "\n");
-				break;
+			int i;
 
-			case RANK_SUIT:
+			switch (_printMode) {
+				
+				case DRAW:
 
-				for(auto card: *_hand) printf("%s%s", _printCardRankSuit(card), (++i % 13) ? "" : "\n\n");
-				printf(i % 13 ? "\n\n" : "\n");
-				break;
+					for(i = 0; i < (int) _hand->size(); ++i) printf("%s%s", _printCardDraw(_hand->at(i), i), ((i + 1) % 6) ? "" : "\n\n");
+					printf(i % 6 ? "\n\n" : "\n");
+					break;
 
-			case TEXT:
+				case RANK_SUIT:
 
-				for(auto card: *_hand) printf("%s", _printCardText(card));
-				break;
-			
-			default: break;
+					for(i = 0; i < (int) _hand->size(); ++i) printf("%s%s", _printCardRankSuit(_hand->at(i), i), ((i + 1) % 6) ? "" : "\n\n");
+					printf(i % 6 ? "\n\n" : "\n");
+					break;
+
+				case TEXT:
+
+					for(i = 0; i < (int) _hand->size(); ++i) printf("%s", _printCardText(_hand->at(i), i));
+					break;
+				
+				default: break;
+			}
 		}
 
 	} else throw EXCEPTION_DECK_NOT_CREATED;
@@ -351,7 +357,7 @@ void Deck::printRaw() {
 		if(_deck->empty()) print += "\tThe deck is empty!\n\n";
 		else {
 
-			for(auto card: *_deck) print += _printCardRaw(card);
+			for(int i = 0; i < (int) _deck->size(); ++i) print += _printCardRaw(_deck->at(i), i);
 			print += "\n";
 		}
 
@@ -360,17 +366,16 @@ void Deck::printRaw() {
 		if(_hand->empty()) print += "\tThe hand is empty!\n\n";
 		else {
 
-			for(auto card: *_hand) print += _printCardRaw(card);
+			for(int i = 0; i < (int) _hand->size(); ++i) print += _printCardRaw(_hand->at(i), i);
 			print += "\n";
 		} 
 
-		print += "Number of decks: ";
 		print += std::to_string(getNumberOfDecks());
-		print += "\nDeck size: ";
+		print += "\n";
 		print += std::to_string(getDeckSize());
-		print += " cards\nRemaining cards: ";
+		print += " cards\n";
 		print += std::to_string(getRemainingCards());
-		print += " cards\nHand size: ";
+		print += " cards\n";
 		print += std::to_string(getHandSize());
 		print += " cards\n";
 
@@ -384,40 +389,41 @@ void Deck::printRaw() {
 
 // Private Functions
 
-const char * Deck::_printCardDraw(const Card_t * card){
+const char * Deck::_printCardDraw(const Card_t * card, uint8_t index){
 
 	static char formattedString[20];
 
-	sprintf(formattedString, "\t%s", card->draw);
+	sprintf(formattedString, "\t\t%hhi) %s", index + 1, card->draw);
 
 	return formattedString;
 }
 
-const char * Deck::_printCardRankSuit(const Card_t * card){
+const char * Deck::_printCardRankSuit(const Card_t * card, uint8_t index){
 
 	static char formattedString[20];
 
-	sprintf(formattedString, "\t%s %s", RANKS[card->rank].symbol, SUITS[card->suit].symbol);
+	sprintf(formattedString, "\t\t%hhi) %s%s", index + 1, RANKS[card->rank].symbol, SUITS[card->suit].symbol);
 
 	return formattedString;
 }
 
-const char * Deck::_printCardText(const Card_t * card){
+const char * Deck::_printCardText(const Card_t * card, uint8_t index){
 
 	static char formattedString[20];
 
-	sprintf(formattedString, "\t%s of %s\n\n", RANKS[card->rank].name, SUITS[card->suit].name);
+	sprintf(formattedString, "\t\t%hhi) %s of %s\n\n", index + 1, RANKS[card->rank].name, SUITS[card->suit].name);
 
 	return formattedString;
 }
 
-const char * Deck::_printCardRaw(const Card_t * card) {
+const char * Deck::_printCardRaw(const Card_t * card, uint8_t index) {
 
 	static char formattedString[100];
 
 	sprintf(
 		formattedString,
-		"\tCard: { rank: { name: \"%s\", symbol: \"%s\" }, suit: { name: \"%s\", symbol: %s }, draw: %s }\n",
+		"\t\tCard %hhi: { rank: { name: \"%s\", symbol: \"%s\" }, suit: { name: \"%s\", symbol: %s }, draw: %s }\n",
+		index + 1,
 		RANKS[card->rank].name, 
 		RANKS[card->rank].symbol, 
 		SUITS[card->suit].name, 
