@@ -4,6 +4,7 @@
  *  Author: Nander Carmo
  *  Version: 1.0
  *  License: MIT
+ * 	Based on the Bill Weinman code taken from https://bw.org/cpp/
  */
 
 #ifndef MY_CARDS_H

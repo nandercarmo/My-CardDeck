@@ -9,7 +9,7 @@
 
 ---
 
-Deck simulator developed during **Linkedin's "C ++ Essential Training"** course. 
+Deck simulator developed during [**Linkedin's "C ++ Essential Training"**](https://bw.org/cpp/) course, by **Bill Weinman**. 
 
 <p align="center">
   <img src="resources/gif.gif">
